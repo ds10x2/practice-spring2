@@ -8,6 +8,21 @@ import spring.*;
 public class AppCtx {
 
     @Bean
+    public VersionPrinter versionPrinter(){
+        VersionPrinter versionPrinter = new VersionPrinter();
+        versionPrinter.setMajorVersion(5);
+        versionPrinter.setMinorVersion(0);
+        return versionPrinter;
+    }
+    @Bean
+    public MemberInfoPrinter infoPrinter(){
+        MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
+        infoPrinter.setMemberDao(memberDao()); //세터 메서드를 이용해서 memberDao 빈과 memberPrinter빈을 주입
+        infoPrinter.setPrinter(memberPrinter());
+        return infoPrinter;
+    }
+
+    @Bean
     public MemberDao memberDao(){
         return new MemberDao();
     }
